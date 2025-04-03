@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,6 +47,21 @@ public class ProductServiceImp implements ProductService {
              throw new EntityNotFoundException("category with id " + product.getCategory().getId() + " not found");
          }
         return productRepo.save(product);
+    }
+    @Override
+    public Product uploadProductImage(Long id, MultipartFile file) throws IOException {
+        Optional<Product> productOptional = productRepo.findById(id);
+        if (productOptional.isPresent()) {
+            Product existingProduct = productOptional.get();
+
+            // Convert MultipartFile to Base64 String
+            String base64Image = Base64.getEncoder().encodeToString(file.getBytes());
+            existingProduct.setImageData(base64Image);
+
+            return productRepo.save(existingProduct);
+        } else {
+            throw new EntityNotFoundException("product with id " + id + " not found");
+        }
     }
     @Override
     public Product updateProduct(Long id, Product productUpdates) throws IOException {

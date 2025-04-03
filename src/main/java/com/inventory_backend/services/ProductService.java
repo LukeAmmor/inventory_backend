@@ -12,4 +12,5 @@ public interface ProductService {
      Product addProduct(Product product) throws IOException;
      Product updateProduct(Long id, Product product) throws IOException;
      void deleteProduct(Long id) throws IOException;
+     Product uploadProductImage(Long id, MultipartFile file) throws IOException;
 }
