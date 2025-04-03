@@ -66,6 +66,11 @@ public class ProductServiceImp implements ProductService {
                 existingProduct.setPrice(productUpdates.getPrice());
             }
 
+            // Update image data if provided
+            if (productUpdates.getImageData() != null) {
+                existingProduct.setImageData(productUpdates.getImageData());
+            }
+
             // Update category if provided
             if (productUpdates.getCategory() != null && productUpdates.getCategory().getId() != null) {
                 Optional<Category> categoryOptional = categoryRepo.findById(productUpdates.getCategory().getId());

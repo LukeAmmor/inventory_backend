@@ -27,6 +27,7 @@ public class Product {
     @JsonBackReference
     private Category category;
 
-    private String filePath;
-
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
+    private String imageData;
 }
